@@ -1,49 +1,25 @@
-# 
-# Copyright (C) 2020 ArtXIA <https://github.com/artxia>
-# <https://github.com/artxia/Action-NotionSite.git>
-#
+name: Node.js Reference Test
 
-name: Deploy to Pages
+on: [push]
 
-on:
-#  schedule:
-#    - cron: "*/20 * * * *"
-  workflow_dispatch:
-
-    
 jobs:
-  build-and-deploy:
+  build:
+
     runs-on: ubuntu-latest
-    
+
+    strategy:
+      matrix:
+        node-version: [15, 16]
+
     steps:
-
-      - name: Checkout this repo
-        uses: actions/checkout@v2
-        with:
-          path: this_repo
-
-      - name: Set up notablog
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-        run: npm i -g notablog
-
-      - name: Build Site
-        run: |
-          cd ${GITHUB_WORKSPACE}/this_repo
-          notablog generate .
-
-      - name: Deploy to Pages
-        uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: this_repo/public
-          CLEAN: true
-          SINGLE_COMMIT: true
-
-      - name: Delete workflow runs
-        uses: Mattraks/delete-workflow-runs@main
-        with:
-          retain_days: 2
-          keep_minimum_runs: 6
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Generate the test blog
+      run: |
+        npm i -g notablog
+        notablog generate .
+      env:
+        CI: true
