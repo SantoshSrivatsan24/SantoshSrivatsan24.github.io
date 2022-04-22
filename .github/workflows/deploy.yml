@@ -22,14 +22,14 @@ jobs:
         with:
           path: this_repo
 
-      - name: Set up notablog
+      - name: Set up node
         uses: actions/setup-node@v3
         with:
           node-version: '14'
-        run: npm i -g notablog
 
       - name: Build Site
         run: |
+          npm i -g notablog
           cd ${GITHUB_WORKSPACE}/this_repo
           notablog generate .
 
