@@ -10,7 +10,7 @@
 
 :root {
   --color-text-default: rgb(55, 53, 47);
-  --color-text-default-light: rgba(55, 53, 47, 0.6);
+  --color-text-default-light: rgb(250, 250, 246);
   --color-text-gray: rgb(155, 154, 151);
   --color-text-brown: rgb(100, 71, 58);
   --color-text-orange: rgb(217, 115, 13);
@@ -54,7 +54,7 @@
 }
 
 body {
-  color: var(--color-text-default);
+  color: var(--color-text-default-light);
   fill: currentColor;
   font-family: 'Source Sans Pro', -apple-system, 'BlinkMacSystemFont',
     'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif,
