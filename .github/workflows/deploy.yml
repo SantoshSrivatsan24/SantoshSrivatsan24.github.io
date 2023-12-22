@@ -34,13 +34,17 @@ jobs:
           npm i -g notablog
           cd ${GITHUB_WORKSPACE}/this_repo
           notablog generate .
-          ls -la
+
+      - name: Post Hook
+      - run: |
+          cd ${GITHUB_WORKSPACE}/this_repo/public
+          mv home.html index.html
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: this_repo/public
+          publish_dir: ${GITHUB_WORKSPACE}/this_repo/public
           
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@main
