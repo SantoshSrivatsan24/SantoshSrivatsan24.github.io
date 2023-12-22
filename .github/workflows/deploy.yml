@@ -36,15 +36,12 @@ jobs:
           notablog generate .
           ls -la
 
-      - name: Deploy to Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          ssh-key: true
-          branch: gh-pages
-          folder: this_repo/public
-          clean: true
-          single-commit: true
-
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@main
         with:
