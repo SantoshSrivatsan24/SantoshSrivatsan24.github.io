@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -51,6 +51,144 @@
   </header>
   <%- post.contentHTML %>
   <%- include('partials/footer.html', { siteMeta }) %>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+  <meta name="theme-color" content="#FFFFFF">
+  <meta property="og:title" content="{{post.title}}">
+  {{if(options.post.description.length > 0)}}
+  <meta name="description" content="{{post.descriptionPlain}}">
+  <meta property="og:description" content="{{post.descriptionPlain}}">
+  {{/if}}
+  <meta property="og:type" content="blog">
+  <title>{{post.title}}</title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css">
+  <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+  <link rel="stylesheet" type="text/css" href="css/notablog.css">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+    <link rel="icon" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/rocket_1f680.png">
+  <style>
+    :root {
+      font-size: 18px;
+    }
+
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+    {{each(options.siteMeta.pages)}}
+    {{if(@this.publish && @this.inMenu)}}
+      {{if(@this.url!="blog.html")}}
+      <a href="{{@this.url}}">
+        <div class="Navbar__Btn">{{@this.iconHTML}} <span>{{@this.title}}</span></div>
+      </a>
+      {{#else}}
+      <a href="/">
+        <div class="Navbar__Btn">{{@this.iconHTML}} <span>{{@this.title}}</span></div>
+      </a>
+      {{/if}}
+    {{/if}}
+    {{/each}}
+    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="https://github.com/vwxyzjn">
+      <div class="Navbar__Btn"> 🐙 <span style="margin-left: 6px;">Github</span></div>
+    </a>
+    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="https://twitter.com/vwxyzjn">
+      <div class="Navbar__Btn">🐦 <span style="margin-left: 6px;">Twitter</span></div>
+    </a>
+    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="https://www.linkedin.com/in/costa-huang/">
+      <div class="Navbar__Btn">👨‍💼 <span style="margin-left: 6px;">Linkedin</span></div>
+    </a>
+    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="https://files.costa.sh/Costa-Huang-Resume.pdf">
+      <div class="Navbar__Btn"> 📜 <span style="margin-left: 6px;">Resume</span></div>
+    </a>
+    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="blog.html">
+      <div class="Navbar__Btn">{{siteMeta.iconHTML}} <span>Blog</span></div>
+    </a>
+  </nav>
+  <header class="Header">
+      {{if(options.post.cover)}}
+    <div class="Header__Cover">
+        <img src="{{post.cover}}">
+      </div>
+      {{/if}}
+    <div class="Header__Spacer {{if(!options.post.cover)}}Header__Spacer--NoCover{{/if}}">
+    </div>
+    {{if(options.post.icon)}}
+    <div class="Header__Icon">{{post.iconHTML}}</div>
+    {{/if}}
+    <h1 class="Header__Title">{{post.title}}</h1>
+        {{if(options.post.date || options.post.tags.length)}}
+    <div class="DateTagBar">
+          {{if(options.post.date)}}
+      <span class="DateTagBar__Item DateTagBar__Date">Posted on {{post.dateString}}</span>
+          {{/if}}
+          {{each(options.post.tags)}}
+      <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--{{@this.color}}">
+            <a href="tag/{{@this.value}}.html">{{@this.value}}</a>
+          </span>
+          {{/each}}
+        </div>
+        {{/if}}
+  </header>
+      {{post.contentHTML}}
+      {{if(options.post.url!=="blog.html")}}
+        <div id="disqus_thread" class="PageRoot" style="padding-top: 30px;"></div>
+        <script>
+          var disqus_config = function () {
+              // Replace PAGE_URL with your page's canonical URL variable
+              this.page.url = window.location.href;  
+              
+              // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+              this.page.identifier = "{{post.id}}"; 
+          };
+          
+          (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+              var d = document, s = d.createElement('script');
+              
+              // IMPORTANT: Replace EXAMPLE with your forum shortname!
+              s.src = 'https://costahuang.disqus.com/embed.js';
+              
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>
+            Please enable JavaScript to view the 
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">
+                comments powered by Disqus.
+            </a>
+        </noscript>
+      {{/if}}
+
+      <footer class="Footer">
+        <div>&copy; {{siteMeta.title}} 2019</div>
+        <div>&centerdot;</div>
+        <div>Powered by <a href="https://github.com/vwxyzjn/notablog-starter" target="_blank"
+            rel="noopener noreferrer">Notablog Customized by Costa Huang </a>.
+        </div>
+    </footer>
 </body>
 
 </html>
