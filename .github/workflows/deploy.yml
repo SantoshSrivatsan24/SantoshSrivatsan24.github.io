@@ -38,11 +38,11 @@ jobs:
       - name: Deploy to Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: this_repo/public
-          CLEAN: true
-          SINGLE_COMMIT: true
+          ssh-key: true
+          branch: gh-pages
+          folder: this_repo/public
+          clean: true
+          single-commit: true
 
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@main
