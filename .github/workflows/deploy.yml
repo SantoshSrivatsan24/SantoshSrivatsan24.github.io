@@ -40,7 +40,7 @@ jobs:
         with:
           ssh-key: true
           branch: gh-pages
-          folder: this_repo/public
+          folder: public
           clean: true
           single-commit: true
 
