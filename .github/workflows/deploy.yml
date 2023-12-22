@@ -34,6 +34,7 @@ jobs:
           npm i -g notablog
           cd ${GITHUB_WORKSPACE}/this_repo
           notablog generate .
+          ls -la
 
       - name: Deploy to Pages
         uses: JamesIves/github-pages-deploy-action@v4
