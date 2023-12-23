@@ -35,10 +35,10 @@ jobs:
           cd ${GITHUB_WORKSPACE}/this_repo
           notablog generate .
 
-      - name: Post Hook
-        run: |
-          cd ${GITHUB_WORKSPACE}/this_repo/public
-          mv home.html index.html
+      # - name: Post Hook
+      #   run: |
+      #     cd ${GITHUB_WORKSPACE}/this_repo/public
+      #     mv home.html index.html
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
