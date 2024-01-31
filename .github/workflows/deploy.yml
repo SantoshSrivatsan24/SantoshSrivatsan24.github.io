@@ -38,6 +38,7 @@ jobs:
       - name: Post Hook
         run: |
           cd ${GITHUB_WORKSPACE}/this_repo/public
+          mv index.html projects.html
           mv home.html index.html
 
       - name: Deploy
