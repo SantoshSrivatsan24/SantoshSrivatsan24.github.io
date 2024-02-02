@@ -38,7 +38,9 @@ jobs:
       - name: Post Hook
         run: |
           cd ${GITHUB_WORKSPACE}/this_repo/public
-          ../posthook.sh
+          mv index.html index_temp.html
+          mv home.html index.html
+          mv index_temp.html projects.html
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
